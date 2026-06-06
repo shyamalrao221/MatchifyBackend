@@ -23,3 +23,18 @@ spec:
                 secretKeyRef:
                   name: matchify-backend-secret
                   key: JWT_SECRET
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: matchify-db-secret
+                  key: DB_URL
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: matchify-db-secret
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: matchify-db-secret
+                  key: DB_PASSWORD
