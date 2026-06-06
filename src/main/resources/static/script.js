@@ -171,7 +171,7 @@ async function registerUser() {
   const messageEl = document.getElementById("registerMessage");
 
   try {
-    const response = await fetch("http://localhost:8080/api/auth/register", {
+    const response = await fetch("/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ firstName, lastName, email, password })
@@ -197,7 +197,7 @@ async function loginUser() {
   const messageEl = document.getElementById("loginMessage");
 
   try {
-    const response = await fetch("http://localhost:8080/api/auth/login", {
+    const response = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
@@ -240,7 +240,7 @@ async function saveProfile() {
   }
 
   try {
-    const response = await fetch("http://localhost:8080/api/profile/me", {
+    const response = await fetch("/api/profile/me", {
       method: "POST",
       headers: getAuthHeaders(),
       body: JSON.stringify({
@@ -274,7 +274,7 @@ async function getProfile() {
   }
 
   try {
-    const response = await fetch("http://localhost:8080/api/profile/me", {
+    const response = await fetch("/api/profile/me", {
       headers: getAuthHeaders()
     });
 
@@ -317,7 +317,7 @@ async function savePreference() {
   }
 
   try {
-    const response = await fetch("http://localhost:8080/api/preferences/me", {
+    const response = await fetch("/api/preferences/me", {
       method: "POST",
       headers: getAuthHeaders(),
       body: JSON.stringify({
@@ -349,7 +349,7 @@ async function getPreference() {
   }
 
   try {
-    const response = await fetch("http://localhost:8080/api/preferences/me", {
+    const response = await fetch("/api/preferences/me", {
       headers: getAuthHeaders()
     });
 
@@ -390,7 +390,7 @@ async function loadAllProfiles() {
   messageEl.style.color = "#555";
 
   try {
-    const response = await fetch("http://localhost:8080/api/profile/all", {
+    const response = await fetch("/api/profile/all", {
       headers: getAuthHeaders()
     });
 
@@ -489,7 +489,7 @@ async function loadMatches() {
   messageEl.style.color = "#555";
 
   try {
-    const response = await fetch(`http://localhost:8080/api/matches/${currentUserId}`, {
+    const response = await fetch(`/api/matches/${currentUserId}`, {
       headers: getAuthHeaders()
     });
 
@@ -589,7 +589,7 @@ async function refreshConversation() {
   listEl.innerHTML = "<p>Loading conversation...</p>";
 
   try {
-    const response = await fetch(`http://localhost:8080/api/messages/${selectedChatUserId}`, {
+    const response = await fetch(`/api/messages/${selectedChatUserId}`, {
       headers: getAuthHeaders()
     });
 
@@ -639,7 +639,7 @@ async function sendMessage() {
   }
 
   try {
-    const response = await fetch("http://localhost:8080/api/messages", {
+    const response = await fetch("/api/messages", {
       method: "POST",
       headers: getAuthHeaders(),
       body: JSON.stringify({
