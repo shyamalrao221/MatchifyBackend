@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matchify</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="page-overlay">
+    <div class="container">
+        <h1>Welcome to Matchify</h1>
+        <p class="subtitle">Find your perfect match</p>
+
+        <div id="publicMenu" class="button-group">
+            <button type="button" onclick="showSection('registerSection')">Register</button>
+            <button type="button" onclick="showSection('loginSection')">Login</button>
+        </div>
+
+        <div id="privateMenu" class="button-group" style="display: none;">
+            <button type="button" onclick="showSection('profileSection')">Profile</button>
+            <button type="button" onclick="showSection('preferenceSection')">Preference</button>
+            <button type="button" onclick="showSection('browseProfilesSection'); loadAllProfiles();">Browse Profiles</button>
+            <button type="button" onclick="showSection('matchesSection'); loadMatches();">Matches</button>
+            <button type="button" onclick="logoutUser()">Logout</button>
+        </div>
+
+        <div id="registerSection" class="form-section" style="display: none;">
+            <h2>Register</h2>
+            <input type="text" id="registerFirstName" placeholder="First Name" autocomplete="off" />
+            <input type="text" id="registerLastName" placeholder="Last Name" autocomplete="off" />
+            <input type="email" id="registerEmail" placeholder="Email" autocomplete="off" />
+            <input type="password" id="registerPassword" placeholder="Password" autocomplete="new-password" />
+            <button type="button" onclick="registerUser()">Register</button>
+            <p id="registerMessage" class="message"></p>
+        </div>
+
+        <div id="loginSection" class="form-section" style="display: none;">
+            <h2>Login</h2>
+            <input type="email" id="loginEmail" placeholder="Email" autocomplete="off" />
+            <input type="password" id="loginPassword" placeholder="Password" autocomplete="new-password" />
+            <button type="button" onclick="loginUser()">Login</button>
+            <p id="loginMessage" class="message"></p>
+        </div>
+
+        <div id="profileSection" class="form-section" style="display: none;">
+            <h2>User Profile</h2>
+            <input type="number" id="age" placeholder="Age" />
+            <select id="gender">
+                <option value="">Select Gender</option>
+                <option value="MALE">MALE</option>
+                <option value="FEMALE">FEMALE</option>
+                <option value="OTHER">OTHER</option>
+            </select>
+            <input type="text" id="city" placeholder="City" />
+            <input type="text" id="bio" placeholder="Bio" />
+            <input type="number" id="height" placeholder="Height in cm" />
+            <div class="action-buttons">
+                <button type="button" onclick="saveProfile()">Save Profile</button>
+                <button type="button" onclick="getProfile()">Get Profile</button>
+            </div>
+            <p id="profileMessage" class="message"></p>
+        </div>
+
+        <div id="preferenceSection" class="form-section" style="display: none;">
+            <h2>User Preference</h2>
+            <select id="preferredGender">
+                <option value="">Select Preferred Gender</option>
+                <option value="MALE">MALE</option>
+                <option value="FEMALE">FEMALE</option>
+                <option value="OTHER">OTHER</option>
+            </select>
+            <input type="number" id="minAge" placeholder="Minimum Age" />
+            <input type="number" id="maxAge" placeholder="Maximum Age" />
+            <input type="text" id="preferredCity" placeholder="Preferred City" />
+            <div class="action-buttons">
+                <button type="button" onclick="savePreference()">Save Preference</button>
+                <button type="button" onclick="getPreference()">Get Preference</button>
+            </div>
+            <p id="preferenceMessage" class="message"></p>
+        </div>
+
+        <div id="browseProfilesSection" class="form-section" style="display: none;">
+            <h2>Browse Profiles</h2>
+
+            <div class="filter-grid">
+                <select id="filterGender">
+                    <option value="">All Genders</option>
+                    <option value="MALE">MALE</option>
+                    <option value="FEMALE">FEMALE</option>
+                    <option value="OTHER">OTHER</option>
+                </select>
+
+                <input type="number" id="filterMinAge" placeholder="Min Age" />
+                <input type="number" id="filterMaxAge" placeholder="Max Age" />
+                <input type="text" id="filterCity" placeholder="City" />
+            </div>
+
+            <div class="action-buttons">
+                <button type="button" onclick="applyProfileFilters()">Apply Filters</button>
+                <button type="button" onclick="resetProfileFilters()">Reset Filters</button>
+                <button type="button" onclick="loadAllProfiles()">Refresh Profiles</button>
+            </div>
+
+            <p id="browseProfilesMessage" class="message"></p>
+            <div id="browseProfilesList" class="matches-list"></div>
+        </div>
+
+        <div id="matchesSection" class="form-section" style="display: none;">
+            <h2>Your Matches</h2>
+            <div class="action-buttons">
+                <button type="button" onclick="loadMatches()">Refresh Matches</button>
+            </div>
+            <p id="matchesMessage" class="message"></p>
+            <div id="matchesList" class="matches-list"></div>
+        </div>
+
+        <div id="messagesSection" class="form-section" style="display: none;">
+            <h2>Messages</h2>
+
+            <div class="chat-header-card">
+                <p id="chatWithUser" class="chat-title"></p>
+            </div>
+
+            <div id="conversationList" class="conversation-box"></div>
+
+            <textarea id="messageContent" placeholder="Type your message here..."></textarea>
+
+            <div class="action-buttons">
+                <button type="button" onclick="sendMessage()">Send Message</button>
+                <button type="button" onclick="refreshConversation()">Refresh Conversation</button>
+                <button type="button" onclick="goBackFromChat()">Back</button>
+            </div>
+
+            <p id="messageBoxMessage" class="message"></p>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

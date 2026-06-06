@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - Matchify</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="container">
+    <h2>User Profile</h2>
+
+    <input type="number" id="age" placeholder="Age" />
+
+    <select id="gender">
+        <option value="">Select Gender</option>
+        <option value="MALE">MALE</option>
+        <option value="FEMALE">FEMALE</option>
+        <option value="OTHER">OTHER</option>
+    </select>
+
+    <input type="text" id="city" placeholder="City" />
+    <textarea id="bio" placeholder="Bio"></textarea>
+    <input type="number" id="height" placeholder="Height in cm" />
+
+    <button type="button" onclick="saveProfile()">Save Profile</button>
+    <button type="button" onclick="getProfile()">Get Profile</button>
+
+    <p class="message" id="profileMessage"></p>
+
+    <p><a href="index.html">Back to Home</a></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
