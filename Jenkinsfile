@@ -19,6 +19,27 @@ pipeline {
             }
         }
 
+        stage('Debug Workspace') {
+            steps {
+                sh 'echo "Current directory:"'
+                sh 'pwd'
+                sh 'echo "Top-level files:"'
+                sh 'ls -la'
+                sh 'echo "Searching for deployment manifests:"'
+                sh 'find . -name "deployment.yaml" -o -name "service.yaml"'
+                sh 'echo "Searching for k8s directory:"'
+                sh 'find . -type d -name "k8s"'
+                sh '''
+                    if [ -f k8s/deployment.yaml ]; then
+                      echo "----- k8s/deployment.yaml -----"
+                      sed -n '1,240p' k8s/deployment.yaml
+                    else
+                      echo "k8s/deployment.yaml not found"
+                    fi
+                '''
+            }
+        }
+
         stage('Build JAR') {
             steps {
                 sh 'chmod +x mvnw'
@@ -56,10 +77,11 @@ pipeline {
 
         stage('Deploy to GKE') {
             steps {
-                sh """
-                sed "s|IMAGE_PLACEHOLDER|${IMAGE_URI}|g" k8s/deployment.yaml | kubectl apply -f -
-                kubectl apply -f k8s/service.yaml
-                """
+                sh '''
+                    kubectl apply -f k8s/deployment.yaml
+                    kubectl apply -f k8s/service.yaml
+                    kubectl set image deployment/matchify-backend matchify-backend=${IMAGE_URI}
+                '''
             }
         }
 
