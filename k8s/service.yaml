@@ -1,62 +1,12 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: matchify-backend
+  name: matchify-backend-service
 spec:
-  replicas: 1
   selector:
-    matchLabels:
-      app: matchify-backend
-  template:
-    metadata:
-      labels:
-        app: matchify-backend
-    spec:
-      containers:
-        - name: matchify-backend
-          image: IMAGE_PLACEHOLDER
-          ports:
-            - containerPort: 8080
-          env:
-            - name: JWT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: matchify-backend-secret
-                  key: JWT_SECRET
-
-            - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://127.0.0.1:3306/matchify_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-
-            - name: SPRING_DATASOURCE_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: matchify-db-secret
-                  key: DB_USERNAME
-
-            - name: SPRING_DATASOURCE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: matchify-db-secret
-                  key: DB_PASSWORD
-
-            - name: SPRING_JPA_DATABASE_PLATFORM
-              value: org.hibernate.dialect.MySQLDialect
-
-        - name: cloud-sql-proxy
-          image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.11.4
-          args:
-            - "--credentials-file=/secrets/cloudsql/key.json"
-            - "--address=0.0.0.0"
-            - "--port=3306"
-            - "matchify-backend-shyamal-2026:asia-south1:matchify-mysql"
-          securityContext:
-            runAsNonRoot: true
-          volumeMounts:
-            - name: cloudsql-instance-credentials
-              mountPath: /secrets/cloudsql
-              readOnly: true
-
-      volumes:
-        - name: cloudsql-instance-credentials
-          secret:
-            secretName: cloudsql-instance-credentials
+    app: matchify-backend
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
