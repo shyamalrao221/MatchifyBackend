@@ -33,6 +33,8 @@ public class SecurityConfig {
                                 "/script.js",
                                 "/style.css",
                                 "/api/auth/**",
+                                "/webhook",
+                                "/webhook/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
