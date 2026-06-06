@@ -57,7 +57,7 @@ pipeline {
         stage('Deploy to GKE') {
             steps {
                 sh """
-                sed 's|IMAGE_PLACEHOLDER|${IMAGE_URI}|g' k8s/deployment.yaml | kubectl apply -f -
+                sed "s|IMAGE_PLACEHOLDER|${IMAGE_URI}|g" k8s/deployment.yaml | kubectl apply -f -
                 kubectl apply -f k8s/service.yaml
                 """
             }
@@ -65,7 +65,9 @@ pipeline {
 
         stage('Verify Deployment') {
             steps {
-                sh 'kubectl get pods'
+                sh 'kubectl rollout status deployment/matchify-backend'
+                sh 'kubectl get deployment matchify-backend -o wide'
+                sh 'kubectl get pods -o wide'
                 sh 'kubectl get svc'
             }
         }
