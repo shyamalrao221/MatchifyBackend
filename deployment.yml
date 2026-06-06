@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matchify-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: matchify-backend
+  template:
+    metadata:
+      labels:
+        app: matchify-backend
+    spec:
+      containers:
+        - name: matchify-backend
+          image: IMAGE_PLACEHOLDER
+          ports:
+            - containerPort: 8080
