@@ -1,11 +1,25 @@
-apiVersion: v1
-kind: Service
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: matchify-backend-service
+  name: matchify-backend
 spec:
-  type: LoadBalancer
+  replicas: 1
   selector:
-    app: matchify-backend
-  ports:
-    - port: 80
-      targetPort: 8080
+    matchLabels:
+      app: matchify-backend
+  template:
+    metadata:
+      labels:
+        app: matchify-backend
+    spec:
+      containers:
+        - name: matchify-backend
+          image: IMAGE_PLACEHOLDER
+          ports:
+            - containerPort: 8080
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: matchify-backend-secret
+                  key: JWT_SECRET
