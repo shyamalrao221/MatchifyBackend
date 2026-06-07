@@ -24,3 +24,5 @@ EXPOSE 8080
 
 # Start the Spring Boot application
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
+#This is a multi-stage Dockerfile. The first stage builds the Spring Boot JAR using Maven and Java 21. The second stage uses a smaller Java runtime image and copies only the built JAR file, which makes the final image lighter and better for deployment. Then it exposes port 8080 and starts the application.
